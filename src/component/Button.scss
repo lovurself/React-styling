@@ -1,4 +1,16 @@
 $blue: #228be6;
+$gray: #495057;
+$pink: #f06595;
+
+@mixin button-color($color) {
+    background: $color;
+    &:hover {
+        background: lighten($color, 10%);
+    }
+    &:active {
+        background: darken($color, 10%);
+    }
+}
 
 .Button {
     display: inline-flex;
@@ -13,28 +25,61 @@ $blue: #228be6;
     padding-left: 1rem;
     padding-right: 1rem;
 
+    // size
     &.large {
         height: 3rem;
         font-size: 1.25rem;
     }
-
     &.medium {
         height: 2.25rem;
         font-size: 1rem;
     }
-
     &.small {
         height: 1.75rem;
         font-size: 0.875rem;
     }
 
-    backround: $blue;
-    &:hover {
-        background: lighten($blue, 10%);
+    // color
+    // mixin과 include 사용 방법
+    &.blue {
+        @include button-color($blue);
     }
-    &:active {
-        background: darken($blue, 10%);
+    &.gray {
+        @include button-color($gray);
     }
+    &.pink {
+        @include button-color($pink);
+    }
+
+    // 기본적인 방법
+    // &.gray {
+    //     backround: $gray;
+    //     &:hover {
+    //         background: lighten($gray, 10%);
+    //     }
+    //     &:active {
+    //         background: darken($gray, 10%);
+    //     }
+    // }
+    // &.blue {
+    //     backround: $blue;
+    //     &:hover {
+    //         background: lighten($blue, 10%);
+    //     }
+    //     &:active {
+    //         background: darken($blue, 10%);
+    //     }
+    // }
+    // &.pink {
+    //     backround: $pink;
+    //     &:hover {
+    //         background: lighten($pink, 10%);
+    //     }
+    //     &:active {
+    //         background: darken($pink, 10%);
+    //     }
+    // }
+    
 
     // 버튼 사이에 여백 주는 방법
     // & + & {
