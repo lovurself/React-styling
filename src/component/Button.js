@@ -3,11 +3,15 @@ import classNames from 'classnames';
 import "./Button.scss";
 
 // outline, fullWidth : boolean type
-function Button({ children, size, color, outline, fullWidth }) {
+function Button({ children, size, color, outline, fullWidth, ...rest }) {
   return <button className={classNames('Button', size, color, {
     outline,
     fullWidth
-  })}>{children}</button>;
+  })}
+    {...rest}
+  >
+    {children}
+  </button>;
 }
 
 // 정석적인 방법
