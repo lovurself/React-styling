@@ -2,9 +2,12 @@ import React from "react";
 import classNames from 'classnames';
 import "./Button.scss";
 
-// color: blue, pink, gray
-function Button({ children, size, color }) {
-  return <button className={classNames('Button', size, color)}>{children}</button>;
+// outline, fullWidth : boolean type
+function Button({ children, size, color, outline, fullWidth }) {
+  return <button className={classNames('Button', size, color, {
+    outline,
+    fullWidth
+  })}>{children}</button>;
 }
 
 // 정석적인 방법
