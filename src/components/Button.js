@@ -3,20 +3,62 @@ import styled, { css } from 'styled-components';
 import { darken, lighten } from 'polished';
 
 // StyledButton 밖에서 변수 생성하고 안에 넣어주는 방법
-// const colorStyles = css`
-//     ${({ theme, color }) => {
-//         const selected = theme.palette[color];
-//         return css`
-//             background: ${selected};
-//             &:hover {
-//                 background: ${lighten(0.1, selected)};
-//             }
-//             &:active {
-//                 background: ${darken(0.1, selected)}
-//             }
-//         `
-//     }}
-// `
+const colorStyles = css`
+    ${({ theme, color }) => {
+        const selected = theme.palette[color];
+        return css`
+            background: ${selected};
+            &:hover {
+                background: ${lighten(0.1, selected)};
+            }
+            &:active {
+                background: ${darken(0.1, selected)}
+            }
+        `;
+    }}
+`;
+
+const sizes = {
+    large: {
+        height: '3rem',
+        fontSize: '1.25rem'
+    },
+    medium: {
+        height: '2.25rem',
+        fontSize: '1rem'
+    },
+    small: {
+        height: '1.75rem',
+        fontSize: '0.875rem'
+    }
+}
+
+const sizeStyles = css`
+    /* 비구조화 할당 */
+    ${({ size }) => css`
+        height: ${sizes[size].height};
+        font-size: ${sizes[size].fontSize};
+    `}
+
+    /* ${props => 
+        props.size === 'large' && css`
+            height: 3rem;
+            font-size: 1.25rem;
+        `
+    }
+    ${props => 
+        props.size === 'medium' && css`
+            height: 2.25rem;
+            font-size: 1rem;
+        `
+    } 
+    ${props => 
+        props.size === 'small' && css`
+            height: 1.75rem;
+            font-size: 0.875rem;
+        `
+    } */
+`;
 
 const StyledButton = styled.button`
     /* 공통 스타일 */
@@ -32,11 +74,27 @@ const StyledButton = styled.button`
     align-items: center;
 
     /* 크기 */
-    height: 2.25rem;
-    font-size: 1rem;
+    /* ${props => 
+        props.size === 'large' && css`
+            height: 3rem;
+            font-size: 1.25rem;
+        `
+    }
+    ${props => 
+        props.size === 'medium' && css`
+            height: 2.25rem;
+            font-size: 1rem;
+        `
+    } 
+    ${props => 
+        props.size === 'small' && css`
+            height: 1.75rem;
+            font-size: 0.875rem;
+        `
+    } */
 
-    /* colorStyles 적용하는 방법
-    ${colorStyles}; */
+    ${colorStyles}
+    ${sizeStyles}
 
     /* 색상 */
     /* ${props => {
@@ -52,7 +110,7 @@ const StyledButton = styled.button`
         `
     }} */
     // 비구조화 할당
-    ${({ theme, color }) => {
+    /* ${({ theme, color }) => {
         const selected = theme.palette[color];
         return css`
             background: ${selected};
@@ -63,7 +121,7 @@ const StyledButton = styled.button`
                 background: ${darken(0.1, selected)}
             }
         `
-    }}
+    }} */
 
     // ThemeProvider 사용
     /* background: ${props => props.theme.palette.blue};
@@ -80,12 +138,13 @@ const StyledButton = styled.button`
     }
 `;
 
-function Button({ children, color, ...rest }) {
-  return <StyledButton color={color} {...rest}>{children}</StyledButton>
+function Button({ children, color, size, ...rest }) {
+  return <StyledButton color={color} size={size} {...rest}>{children}</StyledButton>
 };
 
 Button.defaultProps = {
-    color: 'blue'
+    color: 'blue',
+    size: 'medium'
 }
 
 export default Button;
