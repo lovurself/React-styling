@@ -14,7 +14,7 @@ const ButtonGroup = styled.div`
   & + & {
     margin-top: 1rem;
   }
-`
+`;
 
 const palette = {
   blue: '#228be6',
@@ -28,18 +28,18 @@ function App() {
       <AppBlock>
         <ButtonGroup>
           <Button size='large'>BUTTON</Button>
-          <Button>BUTTON</Button>
-          <Button size='small'>BUTTON</Button>
-        </ButtonGroup>
-        <ButtonGroup>
-          <Button size='large' color='gray'>BUTTON</Button>
           <Button color='gray'>BUTTON</Button>
-          <Button size='small' color='gray'>BUTTON</Button>
+          <Button color='pink' size='small'>BUTTON</Button>
         </ButtonGroup>
         <ButtonGroup>
-          <Button size='large' color='pink'>BUTTON</Button>
-          <Button color='pink'>BUTTON</Button>
-          <Button size='small' color='pink'>BUTTON</Button>
+          <Button size='large' outline>BUTTON</Button>
+          <Button color='gray' outline>BUTTON</Button>
+          <Button color='pink' size='small' outline>BUTTON</Button>
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button fullWidth>BUTTON</Button>
+          <Button color='gray' fullWidth>BUTTON</Button>
+          <Button color='pink' fullWidth>BUTTON</Button>
         </ButtonGroup>
       </AppBlock>
     </ThemeProvider>
