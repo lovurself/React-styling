@@ -52,7 +52,7 @@ const fullWidthStyle = css`
     ${props => props.fullWidth && css`
         width: 100%;
         justify-content: center;
-        & + & {
+        &:not(:first-child) {
             margin-left: 0;
             margin-top: 1rem;
         }
@@ -71,7 +71,8 @@ const StyledButton = styled.button`
     padding-left: 1rem;
     padding-right: 1rem;
 
-    & + & {
+    /* & + & 를 버전 문제로 사용할 수 없게 됨 */
+    &:not(:first-child) {
         margin-left: 1rem;
     }
 
