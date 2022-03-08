@@ -1,6 +1,42 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import styled, { keyframes, css } from 'styled-components';
 import Button from './Button'
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const fadeOut = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
+const slideUp = keyframes`
+  0% {
+    transform: translateY(200px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`;
+
+const slideDown = keyframes`
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(200px);
+  }
+`;
 
 // 알림박스가 뜰 때 배경 설정
 const DarkBackground = styled.div`
@@ -13,6 +49,12 @@ const DarkBackground = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0,0,0,0.8);
+
+  animation: ${fadeIn} 0.25s ease-out forwards;
+
+  ${props => props.disappear && css`
+    animation-name: ${fadeOut};
+  `}
 `;
 
 // 흰색 알림 박스
@@ -30,6 +72,12 @@ const DialogBlock = styled.div`
   p {
     font-size: 1.125rem;
   }
+
+  animation: ${slideUp} 0.25s ease-out forwards;
+
+  ${props => props.disappear && css`
+    animation-name: ${slideDown};
+  `}
 `;
 
 const ButtonGroup = styled.div`
@@ -46,10 +94,23 @@ const ShortMarginButton = styled(Button)`
 `;
 
 function Dialog({ title, children, confirmText, cancelText, visible, onConfirm, onCancel }) {
-  if(!visible) return null;
+  const [animate, setAnimate] = useState(false);
+  const [localVisible, setLocalVisible] = useState(visible);
+
+  useEffect(() => {
+    // visible true -> false되는 시점을 캐치하기 위해서 localVisible 사용
+    if (localVisible && !visible) {
+      setAnimate(true);
+      setTimeout(() => setAnimate(false), 250);
+    }
+    setLocalVisible(visible);
+  }, [localVisible, visible]);
+
+  if(!localVisible && !animate) return null;
+
   return (
-    <DarkBackground>
-      <DialogBlock>
+    <DarkBackground disappear={!visible}>
+      <DialogBlock disappear={!visible}>
         <h3>{title}</h3>
         <p>{children}</p>
         <ButtonGroup>
